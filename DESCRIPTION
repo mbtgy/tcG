@@ -1,0 +1,34 @@
+Package: tcG
+Title: Fitting meta-Gaussian models
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Marie",
+           family = "Boutigny",
+           role = c("aut", "cre"),
+           email = "marie.boutigny1@gmail.com",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: The package contains all the codes used in (ref). It allows fitting several meta-Gaussian models (ref) and the extended Generalized Pareto model (ref). Those mdels are suitable for rainfall data. The main functions are \code{extGP.fit}, \code{tcG.fit} and \code{res.plot}.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Imports: 
+    VGAM,
+    fAsianOptions,
+    evd,
+    graphics,
+    grDevices,
+    ismev,
+    boot,
+    parallel,
+    methods,
+    qpdf,
+    Rdpack
+RdMacros: Rdpack
+Depends: 
+    R (>= 2.10)
