@@ -31,6 +31,7 @@ The transformation <img src="https://render.githubusercontent.com/render/math?ma
 This model is the one of [Naveau et al. (2016)](https://agupubs.onlinelibrary.wiley.com/doi/pdfdirect/10.1002/2015WR018552). It  models only the positive part of the distribution and can be written as
 
 <img src="https://render.githubusercontent.com/render/math?math=%5Clarge%20Y_%2B%20%3D%20%20y_m%20%2B%20%5Csigma%20H%5E%7B-1%7D_%5Cxi(U%5E%7B1%2F%5Calpha%7D)">
+
 where <img src="https://render.githubusercontent.com/render/math?math=U%20%5Csim%20Unif(0%2C1)">, <img src="https://render.githubusercontent.com/render/math?math=H_%5Cxi"> is the cdf of a GPD and <img src="https://render.githubusercontent.com/render/math?math=y_m"> is the minimal value that can be observed.
 
 ## Data
