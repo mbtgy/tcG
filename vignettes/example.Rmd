@@ -1,0 +1,151 @@
+---
+title: "How to use the tcG package"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to use the tcG package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction 
+
+This package contains all the functions needed to fit the models presented in [Boutigny et al. (to be published)](link)^[Boutigny M, Ailliot P, Chaubet A, Naveau P, Saussol B (to be published). “Modelling rainfall from sub-hourly to daily scale with a heavy tailed meta-Gaussian model.” *Water Resources Research*.].
+
+The main functions of the package are `tcG.fit`, `extGP.fit` that are used to fit the models and `res.plot` can be used to draw plots. You can check the documentation pages.
+
+```{r setup}
+library(tcG)
+```
+
+```{r,eval=F}
+?tcG.fit
+?extGP.fit
+?res.plot
+
+```
+
+
+Two types of models can be fitted with this package, all aiming at modeling precipitation which we will note $Y$. 
+
+### Meta-Gaussian models
+
+A meta-Gaussian model can be written as
+
+$$ Y = 0*\mathbb{I}_{X<0} + \psi(X)*\mathbb{I}_{X\geq0} \text{,       with } X\sim \mathcal{N}(\mu,1) $$
+where $\mathbb{I}$ is the indicator function equals to 1 if the condition is true and 0 else. $\mu$ is the parameter that controls the probability of dry measurement.
+The transformation $\psi$ is called the anamorphosis, and 4 options are available in the package:
+
+- `gp` (for Generalized Pareto): $\psi(x) = y_m+\sigma x^{\frac{1}{\alpha}}\exp{\frac{\xi x^2}{2}} $
+- `power`: $\psi(x) = y_m+\sigma x^{\frac{1}{\alpha}}$
+- `quadratic-power`: $\psi(x) = y_m+\sigma_1 x^{\frac{1}{\alpha}}+\sigma_2 x^{\frac{2}{\alpha}}$ 
+- `power-exp`: $\psi(x) = \sigma_2 (\exp(\sigma_1x^{1/\alpha})-1)$
+
+$y_m$ is the minimal value that can be observed.
+
+
+The choice of the anamorphosis will always be controlled by the argument `name`.
+
+
+### Extended Generalized Pareto model
+
+This model is the one of [Naveau et al. (2016)](https://agupubs.onlinelibrary.wiley.com/doi/pdfdirect/10.1002/2015WR018552)^[Naveau P, Huser R, Ribereau P, Hannart A (2016). “Modeling jointly low, moderate, and heavy rainfall intensities without a threshold selection.” *Water Resources Research*, **52**(4), 2753–2769.]. It  models only the positive part of the distribution and can be written as
+
+$$ Y_+ =  y_m + \sigma H^{-1}_\xi(U^{1/\alpha})$$
+where $U \sim Unif(0,1)$, $H_\xi$ is the cdf of a GPD and $y_m$ is the minimal value that can be observed.
+
+## Data
+
+Load the package and the provided data set. 
+
+```{r}
+#data(guip, package="tcG")
+
+# using only October to avoid long calculations
+guip=guip[lubridate::month(guip$date)==10,]
+
+plot(guip[1:7000,], type="l")
+```
+
+
+## Fitting meta-Gaussian models
+
+### First fit
+
+As a first example the `gp` transformation will be fitted. The argument `name` is a vector containing the names of the transformations that I want to fit. `init` is a list, named according to those transformations, which contains initial values for the parameters:
+
+```{r, eval=F}
+init=list("power"=c(mu, sigma, alpha),
+          "gp"=c(mu, sigma, alpha, xi),
+          "power-exp"=c(mu, sigma1, sigma2, alpha),
+          "quadratic-power"=c(mu, sigma1, sigma2, alpha))
+```
+
+$y_m$ is the minimal value that can be observed and $step$ is the precision of the data. Finally `R` and `bootstrap` control the bootstrap replicates.
+
+```{r}
+sort(unique(guip$R))
+
+res=tcG.fit(guip$R, name="gp", init=list("gp"=c(-1,0.5,0.5,0.5)), ym=0.2, step=0.2, R=50)
+
+# fitted parameters
+res$par
+```
+
+
+The default results include a plot for low intensities with a barplot zoomed on the 20 first steps, and a quantile-quantile plot that gives a better view of the global fit. The light area on the qqplot give the 95\% interval computed with the bootstrap replicates.
+
+### The impact of discretization
+
+Taking into account the discretization of precipitation is especially important at fine time scales. In the package there are two options to fit the models: the continuous likelihood and the discrete one. Choosing one is made by inquiring the precision of the data. If `step==0` (default) the continuous likelihood is used, else it is the discrete one.
+ 
+```{r}
+sort(unique(guip$R))
+
+res_cont=tcG.fit(guip$R, name="gp", init=list("gp"=c(-1,0.5,0.5,0.5)), ym=0, step=0, R=50)
+res_dis=tcG.fit(guip$R, name="gp", init=list("gp"=c(-1,0.5,0.5,0.5)), ym=0.2, step=0.2, R=50)
+```
+
+### Comparing several meta-Gaussian models
+
+```{r}
+res=tcG.fit(guip$R, name=c("power", "gp"),
+            init=list("power"=c(-1,1,2), "gp"=c(-1,.5,0.5,0.5)),
+            ym=.2, step=.2, R=50)
+
+# parameters
+res$par
+
+# AIC
+which.min(res$AIC)
+```
+
+
+## Fitting the extended GP model
+
+```{r}
+# uniquement sur les mesures positives
+res=extGP.fit(guip$R[guip$R>0], init=c(.5,.5,.5), ym=0.2, step=0.2, R=50)
+
+res$par
+```
+
+
+## Comparing meta-Gaussian and extended GP
+
+We're not going to use the default plots, but the `res.plot` function.
+
+```{r}
+res_tcG=tcG.fit(guip$R, name="gp", init=list("gp"=c(-1,.5,0.5,0.5)), ym=0.2, step=0.2, R=50, plots=FALSE)
+res_eGP=extGP.fit(guip$R[guip$R>0], init=c(.5,0.5,0.5), ym=0.2, step=0.2, R=50, plots=FALSE)
+
+# plot
+res.plot(res.tcG=res_tcG, res.extGP=res_eGP, y=guip$R, ym=0.2, step=0.2, choice="qqplot")
+```
+
