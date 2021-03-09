@@ -38,3 +38,7 @@ where <img src="https://render.githubusercontent.com/render/math?math=U%20%5Csim
 
 `guip` is the data set provided with the package. It's the 2006-2017 Automn rainfall series at a 6 minutes time step recorded in Guipavas (France) provided by [Météo France](https://donneespubliques.meteofrance.fr).
 
+## Examples
+
+Examples showing how to use the package are shown in the RMarkdown available in `/vignette`.
+
