@@ -1,6 +1,8 @@
 # tcG
 A R package for fitting meta-Gaussian models to precipitation data
 
+Install by downloading the zip file and use `devtools::install("path/tcG-main")` (replace `path` with the location of the zip file).
+
 ## Introduction 
 
 This package contains all the functions needed to fit the models presented in [Boutigny et al. (to be published)](link).
