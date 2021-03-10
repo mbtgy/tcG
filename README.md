@@ -42,7 +42,7 @@ where <img src="https://render.githubusercontent.com/render/math?math=U%20%5Csim
 
 ## Examples
 
-Examples showing how to use the package are shown in the RMarkdown available in `/vignettes`.
+Examples showing how to use the package are shown in the RMarkdown, html and pdf files available in `/vignettes`.
 
 
 
