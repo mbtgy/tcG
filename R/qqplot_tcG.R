@@ -24,7 +24,7 @@ tcG.qqplot = function(y, names, qfit, q.L, q.U, cols=cbind(c(rgb(0,0,1), rgb(1,0
                                                            c(rgb(0,0,1,0.1), rgb(1,0,0,0.1), rgb(0,1,0,0.1), rgb(1,0,1,0.1))),
                       zoomy=range(y,na.rm=T),legend=TRUE, zoomx=range(y,na.rm=T), main="QQ plot"){
   plot(0, 0, asp=1, xlab="Empirical quantiles",ylab="Fitted quantiles", main=main,
-       ylim=zoomy, xlim=zoomx, type="n",cex.main=1)
+       ylim=zoomy, xlim=zoomx, type="n")
   i=1
   for (nm in names){
     if (length(q.L)!=0){

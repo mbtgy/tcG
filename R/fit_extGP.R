@@ -68,7 +68,7 @@ extGP.fit = function(y, init, ym=0, step=0, bootstrap=TRUE, R=500,plots=TRUE,
     par(mfrow=c(1,2))
     if (step==0){
       hist(y, breaks=c(0:30)*max(y+.1)/30, freq=FALSE, xlim=range(x), main="Density of y>0",
-           xlab="Precipitation [mm]", ylab="Density", col="lightgrey", cex.main=1)
+           xlab="Precipitation [mm]", ylab="Density", col="lightgrey")
       lines(x[x>=ym], dfit[x>=ym], col=cols[1])
       legend("topright", "extGP", text.col=cols[1], bty="n")
     }else{

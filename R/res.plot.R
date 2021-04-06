@@ -67,9 +67,9 @@ res.plot = function(res.tcG=NULL, res.extGP=NULL, y, ym=0, step=0, zoom=range(y,
       }
 
       if (!hasArg(main)){hist(y2[y2>0], breaks=c(0:30)*max(y2+.1)/30, freq=FALSE, xlim=zoom,
-                              xlab="Precipitation [mm]", ylab="Density", col="lightgrey",main=main,cex.main=1)
+                              xlab="Precipitation [mm]", ylab="Density", col="lightgrey",main=main)
       }else{hist(y2[y2>0], breaks=c(0:30)*max(y2+.1)/30, freq=FALSE, xlim=zoom,
-                 xlab="Precipitation [mm]", ylab="Density", col="lightgrey",cex.main=1,...)}
+                 xlab="Precipitation [mm]", ylab="Density", col="lightgrey",...)}
 
       if (!is.null(res.tcG)){lines(x, res.tcG$for.plots$dfit[[w]]/cst, col=cols[w,1])
       }else{lines(x, res.extGP$for.plots$dfit/cst, col=cols[5,1])}

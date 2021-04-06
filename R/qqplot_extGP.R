@@ -22,7 +22,7 @@ extGP.qqplot = function(y, qfit, q.L, q.U, cols=c(rgb(.6,.3,0),rgb(.6,.3,0,.5), 
                         zoomx=range(y,na.rm=T), zoomy=range(y,na.rm=T), legend=TRUE,
                         main="QQ plot of positive rainfall", add=FALSE){
   if (!add) plot(0, 0, asp=1, xlab="Empirical quantiles",ylab="Fitted quantiles", main=main,
-                 ylim=zoomy, xlim=zoomx, type="n", cex.main=1)
+                 ylim=zoomy, xlim=zoomx, type="n")
   if (length(q.L)!=0){
     M=cbind(c(sort(y), sort(y,T)), c(q.L, q.U[length(q.U):1]))
     M=M[!duplicated(M),]

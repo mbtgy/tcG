@@ -27,6 +27,6 @@ tcG.barplot = function(y, theta, name="gp", ym=.2, step=.2, cols=c(1,rgb(0,0,1,0
   p=rbind(pemp,pth)
   colnames(p)=tab2
   if (all(zoom==range(y))){w=1:min(20,ncol(p))}else{w=which(tab2<=zoom[2] & tab2>=zoom[1])}
-  barplot(p[,w],beside=TRUE, main=main, col=cols,ylab="p(Y=y)",xlab="y", cex.main=1)
+  barplot(p[,w],beside=TRUE, main=main, col=cols,ylab="p(Y=y)",xlab="y")
   if (legend) legend("topright",c("Empirical",paste("Best AIC tcG model:",name)),bty="n",text.col=cols)
 }

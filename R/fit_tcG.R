@@ -111,7 +111,7 @@ tcG.fit = function(y, name, init, ym=0, step=0, plots=TRUE, bootstrap=TRUE, R=50
     par(mfrow=c(1,2))
     if (step==0){
       hist(y[y>0], breaks=c(0:30)*max(y+.1)/30, freq=FALSE, xlim=range(x), main="Density of y>0",
-           xlab="Precipitation [mm]", ylab="Density", col="lightgrey", cex.main=1)
+           xlab="Precipitation [mm]", ylab="Density", col="lightgrey")
       lines(x[x>=ym], dfit[[w]][x>=ym]/(1-pnorm(-par[[nm]][1])), col=cols[w,1])
       legend("topright", paste("Best AIC tcG model:",nm), text.col=cols[w,1], bty="n")
     }else{

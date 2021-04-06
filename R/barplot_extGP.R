@@ -26,6 +26,6 @@ extGP.barplot = function(y, theta, ym=.2, step=.2, cols=c(1,rgb(.6,.3,0,0.5)),
   p=rbind(pemp,pth)
   colnames(p)=tab2
   if (all(zoom==range(y))){w=1:min(ncol(p),20)}else{w=which(tab2<=zoom[2] & tab2>=zoom[1])}
-  barplot(p[,w],beside=TRUE,main=main,col=cols,ylab="p(Y=y)",xlab="y",cex.main=1)
+  barplot(p[,w],beside=TRUE,main=main,col=cols,ylab="p(Y=y)",xlab="y")
   if (legend) legend("topright",c("Empirical","Extended GP"),cex=.8,bty="n",text.col=cols)
 }
