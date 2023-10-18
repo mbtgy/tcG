@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Introduction 
 
-This package contains all the functions needed to fit the models presented in [Boutigny et al. (to be published)](link)^[Boutigny M, Ailliot P, Chaubet A, Naveau P, Saussol B (to be published). “Modelling rainfall from sub-hourly to daily scale with a heavy tailed meta-Gaussian model.” *Water Resources Research*.].
+This package contains all the functions needed to fit the models presented in [Boutigny et al. (2023)](link)^[Boutigny, M., Ailliot, P., Chaubet, A., Naveau, P., & Saussol, B. (2023). A meta-Gaussian distribution for sub-hourly rainfall. Stochastic Environmental Research and Risk Assessment, 1-13.].
 
 The main functions of the package are `tcG.fit`, `extGP.fit` that are used to fit the models and `res.plot` can be used to draw plots. You can check the documentation pages.
 
