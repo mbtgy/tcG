@@ -7,7 +7,7 @@ Install by downloading the zip file and use `devtools::install("path/tcG-main")`
 
 This package contains all the functions needed to fit the models presented in [Boutigny et al. (2023)](https://link.springer.com/article/10.1007/s00477-023-02487-0).
 
-The main functions of the package are `tcG.fit`, `extGP.fit` that are used to fit the models and `res.plot` can be used to draw plots. You can check the documentation pages.
+The main functions of the package `tcG.fit`, `extGP.fit` are used to fit the models and `res.plot` can be used to draw plots. You can check the documentation pages.
 
 Two types of models can be fitted with this package, all aiming at modeling precipitation which we will note $Y$. 
 
